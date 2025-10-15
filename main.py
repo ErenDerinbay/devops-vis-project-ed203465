@@ -1,5 +1,5 @@
 def greet(param):
     if param == 1:
-        print("Hello")
+        return "Hello"
     else:
-        print("Goodbye")
+        return "Goodbye"
