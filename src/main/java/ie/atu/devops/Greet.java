@@ -11,9 +11,9 @@ public class Greet {
      */
     public static String greet(int param) {
         if (param == 1) {
-            return "Hello";
+            return "Hello!";
         } else {
-            return "Goodbye";
+            return "Goodbye!";
         }
     }
 }
