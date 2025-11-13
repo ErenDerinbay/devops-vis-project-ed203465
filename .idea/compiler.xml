@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ghmvntst" />
+        <module name="devops-vis-project" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ghmvntst" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
