@@ -21,10 +21,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Run Maven tests
+      # Grouped logs for the test step
       - name: Run tests
-        run: mvn test
+        run: |
+          echo "::group::Running Maven Tests"
+          mvn test
+          echo "::endgroup::"
 
       # Build the application
       - name: Build
-        run: mvn -B package --file pom.xml
+        run: |
+          echo "::group::Building Application"
+          mvn -B package --file pom.xml
+          echo "::endgroup::"
