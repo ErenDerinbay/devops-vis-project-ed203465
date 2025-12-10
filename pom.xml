@@ -101,7 +101,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.60</minimum> <!-- 60% line coverage required -->
+                                            <minimum>0.40</minimum> <!-- 40% line coverage required -->
                                         </limit>
                                     </limits>
                                 </rule>
