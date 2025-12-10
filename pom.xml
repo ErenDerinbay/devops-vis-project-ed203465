@@ -49,6 +49,7 @@
                     <configLocation>google_checks.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <encoding>UTF-8</encoding>
+                    <outputFile>target/site/checkstyle.html</outputFile>
                 </configuration>
 
                 <executions>
@@ -78,6 +79,7 @@
                         <id>report</id>
                         <phase>verify</phase>
                         <goals>
+                            <goal>check</goal>
                             <goal>report</goal>
                         </goals>
                     </execution>
