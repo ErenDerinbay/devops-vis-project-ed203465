@@ -59,12 +59,19 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Build the application and generate Javadoc
-      - name: Build application and generate Javadoc
+      # Build the application
+      - name: Build application
         run: |
           echo "::group::Building Application"
           mvn -B package
           echo "::endgroup::"
+
+      # Upload the JAR as an artifact
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
 
       # Upload Javadoc
       - name: Upload Javadoc
