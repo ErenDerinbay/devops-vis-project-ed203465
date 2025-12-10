@@ -86,6 +86,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Download built JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: target/
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -102,8 +108,8 @@ jobs:
       - name: Upload JAR to S3
         run: |
           echo "::group::Uploading to S3"
-          # Find the generated JAR in the target folder
-          JAR_FILE=$(ls target/*.jar)
+          JAR_FILE=$(ls target/*)
           echo "Uploading $JAR_FILE to S3"
           aws s3 cp "$JAR_FILE" s3://amzn-s3-devops-bucket-eren203465/
           echo "::endgroup::"
+
