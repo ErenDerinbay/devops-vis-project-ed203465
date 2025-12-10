@@ -102,10 +102,8 @@ jobs:
       - name: Upload JAR to S3
         run: |
           echo "::group::Uploading to S3"
-          # Ensure the JAR exists
-          if [ ! -f target/app-jar ]; then
-            echo "JAR not found! Building..."
-            mvn package -B -DskipTests
-          fi
-          aws s3 cp target/app-jar s3://amzn-s3-devops-bucket-eren203465/app-jar
+          # Find the generated JAR in the target folder
+          JAR_FILE=$(ls target/*.jar)
+          echo "Uploading $JAR_FILE to S3"
+          aws s3 cp "$JAR_FILE" s3://amzn-s3-devops-bucket-eren203465/
           echo "::endgroup::"
