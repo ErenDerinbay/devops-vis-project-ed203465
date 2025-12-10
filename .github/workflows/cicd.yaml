@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -22,10 +23,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Run Maven tests and generate coverage
-      - name: Run tests with coverage
+      # Run Maven tests with coverage and Checkstyle linting
+      - name: Run Maven verify (tests, coverage, checkstyle)
         run: |
-          echo "::group::Running Maven Tests with Coverage"
+          echo "::group::Running Maven verify"
           mvn -B verify
           echo "::endgroup::"
 
@@ -36,11 +37,19 @@ jobs:
           name: coverage-report
           path: target/site/jacoco
 
+      # Upload Checkstyle report
+      - name: Upload Checkstyle report
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-report
+          path: target/site/checkstyle.html
+
   build:
     runs-on: ubuntu-latest
     # Links the build to the test in the workflow graph
     needs: test
     steps:
+      # Checkout the code
       - uses: actions/checkout@v5
 
       # Set up JDK
@@ -51,9 +60,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Build the application
-      - name: Build application
+      # Build the application and generate Javadoc
+      - name: Build application and generate Javadoc
         run: |
           echo "::group::Building Application"
-          mvn -B package --file pom.xml
+          mvn -B package
           echo "::endgroup::"
+
+      # Upload Javadoc
+      - name: Upload Javadoc
+        uses: actions/upload-artifact@v4
+        with:
+          name: javadoc
+          path: target/site/apidocs
